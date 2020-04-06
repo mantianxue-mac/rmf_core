@@ -164,7 +164,7 @@ bool FleetAdapterNode::ignore_fleet(const std::string& fleet_name) const
 FleetAdapterNode::FleetAdapterNode()
 : rclcpp::Node("fleet_adapter"),
   _fleet_name(get_fleet_name_parameter(*this)),
-  _traits(get_traits_or_default(*this, 0.7, 0.3, 0.5, 1.5, 0.6))
+  _traits(get_traits_or_default(*this, 0.7, 0.3, 0.5, 1.5, 0.5, 1.5))
 {
   _fleet_state_subscription =
       create_subscription<FleetState>(
