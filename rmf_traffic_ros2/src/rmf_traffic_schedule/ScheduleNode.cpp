@@ -681,7 +681,7 @@ void ScheduleNode::receive_proposal(const ConflictProposal& msg)
     conclusion.table = choose->sequence();
 
     std::string output = "Resolved negotiation ["
-        + std::to_string(msg.conflict_version) + ":";
+        + std::to_string(msg.conflict_version) + "]:";
 
     for (const auto p : conclusion.table)
       output += " " + std::to_string(p);
@@ -692,7 +692,9 @@ void ScheduleNode::receive_proposal(const ConflictProposal& msg)
   }
   else if (negotiation.complete())
   {
-    std::cout << " -- REJECTED" << std::endl;
+    std::string output = "Rejected negotiation ["
+              + std::to_string(msg.conflict_version) + "]";
+    RCLCPP_INFO(get_logger(), output);
 
     active_conflicts.conclude(msg.conflict_version);
 
@@ -745,6 +747,10 @@ void ScheduleNode::receive_rejection(const ConflictRejection& msg)
 
   if (negotiation.complete())
   {
+    std::string output = "Rejected negotiation ["
+              + std::to_string(msg.conflict_version) + "]";
+    RCLCPP_INFO(get_logger(), output);
+
     active_conflicts.conclude(msg.conflict_version);
 
     ConflictConclusion conclusion;
